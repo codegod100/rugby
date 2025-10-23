@@ -32,21 +32,21 @@
     (labels ((fresh-n-arg () (make-arg "n" "i32")))
       (list
        (make-function
-         "fib"
-         (list (fresh-n-arg))
-         "i32"
-         `(if (< ,n 2)
-              ,n
-              (+ (,fib (- ,n 1))
-                 (,fib (- ,n 2)))))
+        "fib"
+        (list (fresh-n-arg))
+        "i32"
+        `(if (< ,n 2)
+             ,n
+             (+ (,fib (- ,n 1))
+                (,fib (- ,n 2)))))
        (make-function
-         "fib_sum"
-         (list (fresh-n-arg))
-         "i32"
-         `(if (< ,n 0)
-              0
-              (+ (,fib ,n)
-                 (,fib-sum (- ,n 1)))))))))
+        "fib_sum"
+        (list (fresh-n-arg))
+        "i32"
+        `(if (< ,n 0)
+             0
+             (+ (,fib ,n)
+                (,fib-sum (- ,n 1)))))))))
 
 (defun function-spec->ps-form (spec)
   `(defun ,(function-spec-symbol spec)

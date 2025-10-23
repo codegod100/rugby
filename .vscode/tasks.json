@@ -26,6 +26,19 @@
         "cwd": "."
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Build Porf wasm",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "porf:wasm"
+      ],
+      "options": {
+        "cwd": "."
+      },
+      "problemMatcher": []
     }
   ]
 }

@@ -7,6 +7,7 @@ Common Lisp starter project that emits JavaScript with Parenscript and then atte
 - [SBCL](https://www.sbcl.org/) or another Common Lisp implementation that supports ASDF.
 - [Quicklisp](https://www.quicklisp.org/) with the `parenscript` library installed (`(ql:quickload :parenscript)`).
 - Node.js 18+ with `npm` (required for AssemblyScript).
+- Porf CLI available on the system `PATH` (optional, used for the JS→Wasm comparison).
 
 ## Installation
 
@@ -44,6 +45,7 @@ Outputs:
 
 - `build/generated.wasm` – Release WebAssembly module.
 - `build/generated.wat` – Text representation for inspection.
+- `build/generated.porf.wasm` – Porf-transpiled WebAssembly module derived directly from the generated JavaScript.
 - For debug builds use `npm run build:debug` (writes `.debug.wasm/.debug.wat`).
 
 ## Benchmark against JavaScript
@@ -52,12 +54,14 @@ Outputs:
    ```fish
    npm run build
    ```
-2. Run the benchmark harness to compare the recursive Fibonacci sum in JavaScript and WebAssembly:
+2. Run the benchmark harness to compare the recursive Fibonacci sum in JavaScript, AssemblyScript, and Porf-generated WebAssembly:
    ```fish
    npm run bench
    ```
 
-The script executes `fibSum(30)` multiple times in both implementations and prints the average wall-clock time per variant.
+The script executes `fibSum(30)` multiple times in all three implementations and prints the average wall-clock time per variant.
+
+> **Note:** The Porf-generated module currently overflows the stack on this recursive workload. The benchmark reports the failure instead of aborting, so you can still review the other results.
 
 ## Project layout
 
@@ -67,6 +71,8 @@ The script executes `fibSum(30)` multiple times in both implementations and prin
 - `bin/generate.lisp` – Entrypoint used by the `generate` npm script.
 - `asconfig.json` – AssemblyScript compiler configuration.
 - `benchmarks/fib-benchmark.mjs` – Node.js script that compares JavaScript vs WebAssembly throughput for the generated workload.
+- `scripts/porf-build.mjs` – Node helper that wraps `porf wasm` with input/output checks.
+- `build/generated.porf.wasm` – Output created by `npm run porf:wasm` (wraps `porf wasm build/generated.js build/generated.porf.wasm`) for third-party WASM comparison.
 
 ## Notes
 
