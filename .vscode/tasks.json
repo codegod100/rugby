@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate Parenscript artifacts",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "generate"
+      ],
+      "options": {
+        "cwd": "."
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build AssemblyScript wasm",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "options": {
+        "cwd": "."
+      },
+      "problemMatcher": []
+    }
+  ]
+}

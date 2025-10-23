@@ -1,0 +1,15 @@
+{
+  "name": "ps-asc-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "sbcl --noinform --non-interactive --load bin/generate.lisp",
+    "build:wasm": "npx asc --config asconfig.json --target release",
+    "build:debug": "npx asc --config asconfig.json --target debug",
+    "build": "npm run generate && npm run build:wasm"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.27.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "options": {
+    "runtime": "stub"
+  },
+  "targets": {
+    "debug": {
+      "outFile": "build/generated.debug.wasm",
+      "textFile": "build/generated.debug.wat"
+    },
+    "release": {
+      "outFile": "build/generated.wasm",
+      "textFile": "build/generated.wat"
+    }
+  },
+  "entries": [
+    "build/generated.ts"
+  ]
+}
