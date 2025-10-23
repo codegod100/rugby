@@ -7,7 +7,8 @@
     "generate": "sbcl --noinform --non-interactive --load bin/generate.lisp",
     "build:wasm": "npx asc --config asconfig.json --target release",
     "build:debug": "npx asc --config asconfig.json --target debug",
-    "build": "npm run generate && npm run build:wasm"
+    "build": "npm run generate && npm run build:wasm",
+    "bench": "node benchmarks/fib-benchmark.mjs"
   },
   "devDependencies": {
     "assemblyscript": "^0.27.0"

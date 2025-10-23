@@ -46,12 +46,27 @@ Outputs:
 - `build/generated.wat` – Text representation for inspection.
 - For debug builds use `npm run build:debug` (writes `.debug.wasm/.debug.wat`).
 
+## Benchmark against JavaScript
+
+1. Ensure artifacts are current:
+   ```fish
+   npm run build
+   ```
+2. Run the benchmark harness to compare the recursive Fibonacci sum in JavaScript and WebAssembly:
+   ```fish
+   npm run bench
+   ```
+
+The script executes `fibSum(30)` multiple times in both implementations and prints the average wall-clock time per variant.
+
 ## Project layout
 
 - `ps-asc-demo.asd` – ASDF system definition.
 - `src/` – Common Lisp source for Parenscript/AssemblyScript generation.
+- `src/fib.js` – Naive recursive Fibonacci + accumulator used for JavaScript benchmarking.
 - `bin/generate.lisp` – Entrypoint used by the `generate` npm script.
 - `asconfig.json` – AssemblyScript compiler configuration.
+- `benchmarks/fib-benchmark.mjs` – Node.js script that compares JavaScript vs WebAssembly throughput for the generated workload.
 
 ## Notes
 

@@ -1,8 +1,12 @@
 (require "asdf")
 
-(let ((project-root (uiop:truenamize (uiop:getcwd))))
-	(pushnew project-root asdf:*central-registry*
-					 :test #'equal))
+(let* ((script-path (or *load-truename*
+						(merge-pathnames "bin/generate.lisp" (uiop:getcwd))))
+	  (script-dir (uiop:pathname-directory-pathname (uiop:truenamize script-path)))
+	  (project-root (uiop:truenamize (or (uiop:pathname-parent-directory-pathname script-dir)
+								  script-dir))))
+  (pushnew project-root asdf:*central-registry*
+					 :test #'uiop:pathname-equal))
 
 (let* ((home (uiop:physicalize-pathname (user-homedir-pathname)))
 			 (setup (merge-pathnames "quicklisp/setup.lisp" home)))

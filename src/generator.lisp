@@ -27,16 +27,26 @@
 
 (defparameter *function-specs*
   (let* ((fib (ps-symbol "fib"))
+         (fib-sum (ps-symbol "fib_sum"))
          (n (ps-symbol "n")))
-    (list
-     (let ((n-arg (make-arg "n" "i32")))
-       (make-function "fib"
-                      (list n-arg)
-                      "i32"
-                      `(if (< ,n 2)
-                           ,n
-                           (+ (,fib (- ,n 1))
-                              (,fib (- ,n 2)))))))))
+    (labels ((fresh-n-arg () (make-arg "n" "i32")))
+      (list
+       (make-function
+         "fib"
+         (list (fresh-n-arg))
+         "i32"
+         `(if (< ,n 2)
+              ,n
+              (+ (,fib (- ,n 1))
+                 (,fib (- ,n 2)))))
+       (make-function
+         "fib_sum"
+         (list (fresh-n-arg))
+         "i32"
+         `(if (< ,n 0)
+              0
+              (+ (,fib ,n)
+                 (,fib-sum (- ,n 1)))))))))
 
 (defun function-spec->ps-form (spec)
   `(defun ,(function-spec-symbol spec)
